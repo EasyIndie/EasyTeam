@@ -1,18 +1,16 @@
 #!/usr/bin/env bash
 # ============================================================
-# 一键导出当前团队配置到 team-deploy/openclaw/templates/
-# 在本地迭代后运行，保持模板最新。
-# 同时同步 team-core/ 平台无关文档。
+# 一键导出当前 OpenClaw 配置到 teams/dev/platforms/openclaw/templates/
+# 在本地迭代后运行，保持 dev 团队模板最新。
 # ============================================================
 set -euo pipefail
 
 OPENCLAW_HOME="${OPENCLAW_HOME:-$HOME/.openclaw}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEMPLATES_DIR="$SCRIPT_DIR/templates"
-ROOT_DIR="$(dirname "$SCRIPT_DIR")"
-TEAM_CORE_DIR="$(dirname "$ROOT_DIR")/team-core"
+DEV_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 
-echo "📦 导出多智能体团队配置..."
+echo "📦 导出多智能体开发团队配置..."
 
 # ---------- 1. Agent 模板 ----------
 echo "  1/5 导出 Agent 目录..."
@@ -111,7 +109,7 @@ if feishu:
     for name, acct in feishu.get('accounts', {}).items():
         team_config['channels']['feishu']['accounts'][name] = {
             'appId': acct.get('appId', ''),
-            'appSecret': '{{FEISHU_SECRET}}'
+            'appSecret': '***}}'
         }
     for key in ('bot', 'capabilities', 'generalConfig'):
         if key in feishu:
@@ -127,10 +125,10 @@ count = json_str.count('{{')
 print(f'    占位符数: {count}')
 "
 
-# ---------- 5. 同步 team-core（如果同目录存在） ----------
-echo "  5/5 同步 team-core 平台无关文档..."
-if [ -d "$TEAM_CORE_DIR" ]; then
-  echo "     team-core/ 位于 $TEAM_CORE_DIR（同仓库管理）"
+# ---------- 5. 同步平台无关规范 ----------
+echo "  5/5 同步 dev 团队规范..."
+if [ -d "$DEV_DIR/roles" ]; then
+  echo "     dev/roles/ ✅ 已同步"
 fi
 
 echo ""
@@ -138,4 +136,4 @@ echo "✅ 导出完成！"
 echo "   模板文件: $(find "$TEMPLATES_DIR" -type f | wc -l) 个"
 echo ""
 echo "   同步到 git："
-echo "     cd $ROOT_DIR && git add -A && git commit -m \"sync: 更新团队配置\" && git push"
+echo "     cd $(dirname "$(dirname "$(dirname "$SCRIPT_DIR")")") && git add -A && git commit -m \"sync: 更新 dev 团队配置\" && git push"

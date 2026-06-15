@@ -592,39 +592,39 @@
       "accounts": {
         "architect-agent": {
           "appId": "cli_a95a5dca0678dcbd",
-          "appSecret": "{{FEISHU_SECRET}}"
+          "appSecret": "***}}"
         },
         "coding-agent": {
           "appId": "cli_a95a5e06f538dcee",
-          "appSecret": "{{FEISHU_SECRET}}"
+          "appSecret": "***}}"
         },
         "conductor": {
           "appId": "cli_a95a5c12ee61dcca",
-          "appSecret": "{{FEISHU_SECRET}}"
+          "appSecret": "***}}"
         },
         "default": {
           "appId": "",
-          "appSecret": "{{FEISHU_SECRET}}"
+          "appSecret": "***}}"
         },
         "devops-agent": {
           "appId": "cli_a95a59c429b8dcdb",
-          "appSecret": "{{FEISHU_SECRET}}"
+          "appSecret": "***}}"
         },
         "growth-agent": {
           "appId": "cli_a95a5a32ae78dcce",
-          "appSecret": "{{FEISHU_SECRET}}"
+          "appSecret": "***}}"
         },
         "qa-agent": {
           "appId": "cli_a95a5e558fb81cc4",
-          "appSecret": "{{FEISHU_SECRET}}"
+          "appSecret": "***}}"
         },
         "research-agent": {
           "appId": "cli_a95a5d281a78dcd5",
-          "appSecret": "{{FEISHU_SECRET}}"
+          "appSecret": "***}}"
         },
         "ux-agent": {
           "appId": "cli_a95a5de4cb781cb2",
-          "appSecret": "{{FEISHU_SECRET}}"
+          "appSecret": "***}}"
         }
       }
     }
