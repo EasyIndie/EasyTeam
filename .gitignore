@@ -1,0 +1,7 @@
+# Generated config files (contain secrets)
+templates/openclaw.json.template
+# Skip node_modules if any
+node_modules/
+# OS files
+.DS_Store
+Thumbs.db

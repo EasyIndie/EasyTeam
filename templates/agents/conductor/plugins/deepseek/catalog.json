@@ -1,0 +1,44 @@
+{
+  "generatedBy": "openclaw-plugin-model-catalog-v1",
+  "providers": {
+    "deepseek": {
+      "baseUrl": "https://api.deepseek.com",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "deepseek-v4-flash",
+          "name": "deepseek-v4-flash",
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 128000,
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "maxTokens": 8192
+        },
+        {
+          "id": "deepseek-v4-pro",
+          "name": "deepseek-v4-pro",
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheWrite": 0,
+            "cacheRead": 0
+          },
+          "contextWindow": 128000,
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "maxTokens": 8192
+        }
+      ],
+      "apiKey": "sk-b9c6647f77614c05b5426095cb302069"
+    }
+  }
+}
