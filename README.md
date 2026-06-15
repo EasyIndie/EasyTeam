@@ -27,9 +27,9 @@ openclaw gateway restart
 │   └── scripts/                跨团队复用脚本（按需）
 └── teams/                      ← 每个团队类型一个子目录
     ├── dev/                    ← 软件开发团队 (✅ 已就绪)
-    ├── content/                ← 内容团队 (📋 规划中)
-    ├── video/                  ← 视频团队 (📋 规划中)
-    ├── company/                ← 全能公司团队 (📋 规划中)
+    ├── content/                ← 内容团队 (✅ 已就绪)
+    ├── video/                  ← 视频团队 (✅ 已就绪)
+    ├── company/                ← 全能公司团队 (✅ 已就绪)
     └── app/                    ← 应用团队 (📋 规划中)
 ```
 
@@ -80,6 +80,32 @@ bash teams/dev/platforms/openclaw/export.sh
 git add -A && git commit -m "sync: 更新 dev 团队配置"
 git push
 ```
+
+### content — 内容团队
+
+6 个角色，6 阶段内容生产工作流：热点选题 → 写稿 → 配图 → 视频 → 发布 → 数据分析。
+
+**角色：** editor-in-chief / writer / designer / video-editor / publisher / researcher
+
+**可用平台：** Claude Code ✅ | Codex ✅
+
+### video — 视频团队
+
+6 个角色，6 阶段视频制作工作流：选题 → 编剧分镜 → 配音 → 剪辑 → 发布 → 数据分析。
+
+**角色：** producer / screenwriter / voice-actor / editor / publisher / analyst
+
+**可用平台：** Claude Code ✅ | Codex ✅
+
+### company — 全能公司
+
+7 个角色，覆盖从产品定义到商业运营全流程。
+
+**角色：** ceo / product-manager / developer / operator / customer-service / finance / growth
+
+**可用平台：** Claude Code ✅ | Codex ✅
+
+**流程：** 战略决策 → 产品定义 → 技术实现 → 运营推广 → 客服反馈 → 财务分析 → 复盘迭代
 
 ## 常见问题
 
