@@ -6,10 +6,10 @@
 
 ```bash
 # 拉取最新模板
-git clone <仓库URL> ~/.openclaw/team-deploy
+git clone <仓库URL> ~/.openclaw/EasyTeam
 
 # 部署某个团队到本地 OpenClaw
-cd ~/.openclaw/team-deploy/teams/<团队>/platforms/openclaw
+cd ~/.openclaw/EasyTeam/teams/<团队>/platforms/openclaw
 bash setup.sh
 
 # 补填 API Key + 飞书凭据
