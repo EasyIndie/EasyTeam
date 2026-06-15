@@ -1,59 +1,23 @@
 # 多智能体软件开发团队工作流 — 部署包
 
-9 个 Agent 的多智能体团队工作流，基于 OpenClaw。
+9 个 Agent 的多智能体团队工作流。支持 OpenClaw、Claude Code、Codex（ChatGPT）。
 
-## 迁移到新设备
-
-### 前置条件
-
-1. 新设备已安装 [OpenClaw](https://openclaw.ai)
-2. 已启动过一次 OpenClaw，生成了基础配置文件
-3. 准备好 9 个飞书机器人的 appId + appSecret
-4. 准备好 deepseek API Key
-
-### 部署步骤
-
-```bash
-# 1. 将 team-deploy 目录复制到新设备任意位置
-# 2. 运行部署脚本
-export DEEPSEEK_API_KEY="sk-xxxx"
-bash setup.sh
-
-# 3. 部署脚本会提示填写飞书凭证和 API Key
-# 4. 合并配置后重启网关
-openclaw gateway restart
-```
-
-### 文件结构
+## 分层架构
 
 ```
-team-deploy/
-├── setup.sh                     # 一键部署脚本
-├── README.md
-├── templates/
-│   ├── openclaw.json.template   # 全局配置模板（含 {{占位符}}）
-│   ├── agents/                  # 9 个 Agent 目录模板
-│   │   ├── main/
-│   │   ├── conductor/
-│   │   ├── architect-agent/
-│   │   ├── coding-agent/
-│   │   ├── qa-agent/
-│   │   ├── devops-agent/
-│   │   ├── research-agent/
-│   │   ├── ux-agent/
-│   │   └── growth-agent/
-│   ├── workspaces/              # 9 个 Workspace 模板
-│   │   ├── main/
-│   │   ├── conductor/
-│   │   ├── architect-agent/
-│   │   └── ...
-│   └── skills/                  # 自定义 Skills
-│       ├── conductor/
-│       ├── coding-agent/
-│       └── ...
+team-core/           ← 平台无关规范（团队资产，所有人共享）
+  └─ roles/          ← 9 个角色的职责定义
+  └─ prompts/        ← 关键 prompt 模板
+  └─ workflow.md     ← 5 阶段工作流
+  └─ README.md       ← 团队架构说明
+
+team-deploy/         ← 各平台适配层
+  ├─ openclaw/       ← OpenClaw：export.sh + setup.sh + templates/
+  ├─ claude-code/    ← Claude Code：CLAUDE.md（项目根目录指令）
+  └─ codex/          ← Codex：初始对话 prompt 模板
 ```
 
-### 架构
+## 团队架构
 
 ```
 main (阿龙) — 入口，分流日常/开发需求
@@ -63,10 +27,57 @@ main (阿龙) — 入口，分流日常/开发需求
   architect coding qa devops research ux growth
 ```
 
-### 维护
+## 各平台部署方式
 
-- 修改团队配置后，记得重新导出模板：
-  ```bash
-  # 手动更新 templates/ 目录
-  ```
-- 建议将此目录作为独立 git 仓库管理
+### OpenClaw
+
+```bash
+# 部署到新设备
+cd team-deploy
+bash openclaw/setup.sh
+# 补填 API Key + 飞书凭据后
+openclaw gateway restart
+
+# 迭代后导出
+bash openclaw/export.sh
+git add -A && git commit -m "sync" && git push
+```
+
+### Claude Code
+
+1. 将 `team-deploy/claude-code/CLAUDE.md` 复制到项目根目录
+2. Claude Code 启动时会自动读取
+3. 收到需求后，按 CLAUDE.md 的 5 阶段工作流执行
+
+### Codex (ChatGPT Codex)
+
+1. 打开新对话前，从 `team-deploy/codex/README.md` 复制合并 prompt
+2. 粘贴为初始指令
+3. 按 5 阶段工作流执行
+4. 大任务分多次对话完成
+
+## 文件结构
+
+```
+team-deploy/
+├── README.md
+├── openclaw/
+│   ├── setup.sh                 # 一键部署脚本
+│   ├── export.sh                # 一键导出脚本
+│   └── templates/
+│       ├── openclaw.json.template  # 全局配置模板
+│       ├── agents/{9}/          # 9 个 Agent 目录模板
+│       ├── workspaces/{9}/      # 9 个 Workspace 模板
+│       └── skills/{31}/         # 自定义 Skills
+├── claude-code/
+│   └── CLAUDE.md                # Claude Code 项目指令
+└── codex/
+    └── README.md                # Codex 适配说明 + 合并 prompt
+```
+
+## 维护
+
+- **核心规范迭代**：改 team-core/ 下的文档（平台无关）
+- **OpenClaw 适配**：改完本地配置后跑 `openclaw/export.sh`
+- **Git 同步**：全部修改后 `git commit && git push`
+- **建议**：整个仓库作为独立 git 仓库管理

@@ -1,0 +1,632 @@
+{
+  "agents": {
+    "defaults": {
+      "bootstrapMaxChars": 12000,
+      "maxConcurrent": 4,
+      "model": {
+        "primary": "deepseek/deepseek-v4-flash",
+        "fallbacks": [
+          "deepseek/deepseek-v4-pro"
+        ]
+      },
+      "models": {
+        "deepseek/deepseek-v4-flash": {},
+        "deepseek/deepseek-v4-pro": {}
+      },
+      "subagents": {
+        "maxConcurrent": 8,
+        "allowAgents": [
+          "*"
+        ]
+      },
+      "repoRoot": "~/Documents/EasySticker",
+      "workspace": "{{OPENCLAW_HOME}}/workspace",
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "memorySearch": {
+        "provider": "none"
+      },
+      "heartbeat": {
+        "every": "30m",
+        "isolatedSession": true,
+        "lightContext": true,
+        "target": "last",
+        "activeHours": {
+          "start": "09:00",
+          "end": "23:00"
+        }
+      },
+      "timeoutSeconds": 300
+    },
+    "list": [
+      {
+        "agentDir": "{{OPENCLAW_HOME}}/agents/main/agent",
+        "default": true,
+        "id": "main",
+        "name": "main",
+        "tools": {
+          "alsoAllow": [
+            "feishu_bitable_app",
+            "feishu_bitable_app_table",
+            "feishu_bitable_app_table_field",
+            "feishu_bitable_app_table_record",
+            "feishu_bitable_app_table_view",
+            "feishu_calendar_calendar",
+            "feishu_calendar_event",
+            "feishu_calendar_event_attendee",
+            "feishu_calendar_freebusy",
+            "feishu_chat",
+            "feishu_chat_members",
+            "feishu_create_doc",
+            "feishu_doc_comments",
+            "feishu_doc_media",
+            "feishu_drive_file",
+            "feishu_fetch_doc",
+            "feishu_get_user",
+            "feishu_im_bot_image",
+            "feishu_im_user_fetch_resource",
+            "feishu_im_user_get_messages",
+            "feishu_im_user_get_thread_messages",
+            "feishu_im_user_message",
+            "feishu_im_user_search_messages",
+            "feishu_oauth",
+            "feishu_oauth_batch_auth",
+            "feishu_search_doc_wiki",
+            "feishu_search_user",
+            "feishu_sheet",
+            "feishu_task_comment",
+            "feishu_task_subtask",
+            "feishu_task_task",
+            "feishu_task_tasklist",
+            "feishu_update_doc",
+            "feishu_wiki_space",
+            "feishu_wiki_space_node"
+          ]
+        },
+        "workspace": "{{OPENCLAW_HOME}}/workspace"
+      },
+      {
+        "agentDir": "{{OPENCLAW_HOME}}/agents/conductor/agent",
+        "id": "conductor",
+        "name": "conductor",
+        "tools": {
+          "alsoAllow": [
+            "feishu_bitable_app",
+            "feishu_bitable_app_table",
+            "feishu_bitable_app_table_field",
+            "feishu_bitable_app_table_record",
+            "feishu_bitable_app_table_view",
+            "feishu_calendar_calendar",
+            "feishu_calendar_event",
+            "feishu_calendar_event_attendee",
+            "feishu_calendar_freebusy",
+            "feishu_chat",
+            "feishu_chat_members",
+            "feishu_create_doc",
+            "feishu_doc_comments",
+            "feishu_doc_media",
+            "feishu_drive_file",
+            "feishu_fetch_doc",
+            "feishu_get_user",
+            "feishu_im_bot_image",
+            "feishu_im_user_fetch_resource",
+            "feishu_im_user_get_messages",
+            "feishu_im_user_get_thread_messages",
+            "feishu_im_user_message",
+            "feishu_im_user_search_messages",
+            "feishu_oauth",
+            "feishu_oauth_batch_auth",
+            "feishu_search_doc_wiki",
+            "feishu_search_user",
+            "feishu_sheet",
+            "feishu_task_comment",
+            "feishu_task_subtask",
+            "feishu_task_task",
+            "feishu_task_tasklist",
+            "feishu_update_doc",
+            "feishu_wiki_space",
+            "feishu_wiki_space_node"
+          ]
+        },
+        "workspace": "{{OPENCLAW_HOME}}/workspace-conductor"
+      },
+      {
+        "agentDir": "{{OPENCLAW_HOME}}/agents/research-agent/agent",
+        "id": "research-agent",
+        "name": "research-agent",
+        "tools": {
+          "alsoAllow": [
+            "feishu_bitable_app",
+            "feishu_bitable_app_table",
+            "feishu_bitable_app_table_field",
+            "feishu_bitable_app_table_record",
+            "feishu_bitable_app_table_view",
+            "feishu_calendar_calendar",
+            "feishu_calendar_event",
+            "feishu_calendar_event_attendee",
+            "feishu_calendar_freebusy",
+            "feishu_chat",
+            "feishu_chat_members",
+            "feishu_create_doc",
+            "feishu_doc_comments",
+            "feishu_doc_media",
+            "feishu_drive_file",
+            "feishu_fetch_doc",
+            "feishu_get_user",
+            "feishu_im_bot_image",
+            "feishu_im_user_fetch_resource",
+            "feishu_im_user_get_messages",
+            "feishu_im_user_get_thread_messages",
+            "feishu_im_user_message",
+            "feishu_im_user_search_messages",
+            "feishu_oauth",
+            "feishu_oauth_batch_auth",
+            "feishu_search_doc_wiki",
+            "feishu_search_user",
+            "feishu_sheet",
+            "feishu_task_comment",
+            "feishu_task_subtask",
+            "feishu_task_task",
+            "feishu_task_tasklist",
+            "feishu_update_doc",
+            "feishu_wiki_space",
+            "feishu_wiki_space_node"
+          ]
+        },
+        "workspace": "{{OPENCLAW_HOME}}/workspace-research"
+      },
+      {
+        "agentDir": "{{OPENCLAW_HOME}}/agents/architect-agent/agent",
+        "id": "architect-agent",
+        "name": "architect-agent",
+        "tools": {
+          "alsoAllow": [
+            "feishu_bitable_app",
+            "feishu_bitable_app_table",
+            "feishu_bitable_app_table_field",
+            "feishu_bitable_app_table_record",
+            "feishu_bitable_app_table_view",
+            "feishu_calendar_calendar",
+            "feishu_calendar_event",
+            "feishu_calendar_event_attendee",
+            "feishu_calendar_freebusy",
+            "feishu_chat",
+            "feishu_chat_members",
+            "feishu_create_doc",
+            "feishu_doc_comments",
+            "feishu_doc_media",
+            "feishu_drive_file",
+            "feishu_fetch_doc",
+            "feishu_get_user",
+            "feishu_im_bot_image",
+            "feishu_im_user_fetch_resource",
+            "feishu_im_user_get_messages",
+            "feishu_im_user_get_thread_messages",
+            "feishu_im_user_message",
+            "feishu_im_user_search_messages",
+            "feishu_oauth",
+            "feishu_oauth_batch_auth",
+            "feishu_search_doc_wiki",
+            "feishu_search_user",
+            "feishu_sheet",
+            "feishu_task_comment",
+            "feishu_task_subtask",
+            "feishu_task_task",
+            "feishu_task_tasklist",
+            "feishu_update_doc",
+            "feishu_wiki_space",
+            "feishu_wiki_space_node"
+          ]
+        },
+        "workspace": "{{OPENCLAW_HOME}}/workspace-architect"
+      },
+      {
+        "agentDir": "{{OPENCLAW_HOME}}/agents/ux-agent/agent",
+        "id": "ux-agent",
+        "name": "ux-agent",
+        "tools": {
+          "alsoAllow": [
+            "feishu_bitable_app",
+            "feishu_bitable_app_table",
+            "feishu_bitable_app_table_field",
+            "feishu_bitable_app_table_record",
+            "feishu_bitable_app_table_view",
+            "feishu_calendar_calendar",
+            "feishu_calendar_event",
+            "feishu_calendar_event_attendee",
+            "feishu_calendar_freebusy",
+            "feishu_chat",
+            "feishu_chat_members",
+            "feishu_create_doc",
+            "feishu_doc_comments",
+            "feishu_doc_media",
+            "feishu_drive_file",
+            "feishu_fetch_doc",
+            "feishu_get_user",
+            "feishu_im_bot_image",
+            "feishu_im_user_fetch_resource",
+            "feishu_im_user_get_messages",
+            "feishu_im_user_get_thread_messages",
+            "feishu_im_user_message",
+            "feishu_im_user_search_messages",
+            "feishu_oauth",
+            "feishu_oauth_batch_auth",
+            "feishu_search_doc_wiki",
+            "feishu_search_user",
+            "feishu_sheet",
+            "feishu_task_comment",
+            "feishu_task_subtask",
+            "feishu_task_task",
+            "feishu_task_tasklist",
+            "feishu_update_doc",
+            "feishu_wiki_space",
+            "feishu_wiki_space_node"
+          ]
+        },
+        "workspace": "{{OPENCLAW_HOME}}/workspace-ux"
+      },
+      {
+        "agentDir": "{{OPENCLAW_HOME}}/agents/coding-agent/agent",
+        "id": "coding-agent",
+        "name": "coding-agent",
+        "model": {
+          "primary": "deepseek/deepseek-v4-pro",
+          "fallbacks": [
+            "deepseek/deepseek-v4-flash"
+          ]
+        },
+        "tools": {
+          "alsoAllow": [
+            "feishu_bitable_app",
+            "feishu_bitable_app_table",
+            "feishu_bitable_app_table_field",
+            "feishu_bitable_app_table_record",
+            "feishu_bitable_app_table_view",
+            "feishu_calendar_calendar",
+            "feishu_calendar_event",
+            "feishu_calendar_event_attendee",
+            "feishu_calendar_freebusy",
+            "feishu_chat",
+            "feishu_chat_members",
+            "feishu_create_doc",
+            "feishu_doc_comments",
+            "feishu_doc_media",
+            "feishu_drive_file",
+            "feishu_fetch_doc",
+            "feishu_get_user",
+            "feishu_im_bot_image",
+            "feishu_im_user_fetch_resource",
+            "feishu_im_user_get_messages",
+            "feishu_im_user_get_thread_messages",
+            "feishu_im_user_message",
+            "feishu_im_user_search_messages",
+            "feishu_oauth",
+            "feishu_oauth_batch_auth",
+            "feishu_search_doc_wiki",
+            "feishu_search_user",
+            "feishu_sheet",
+            "feishu_task_comment",
+            "feishu_task_subtask",
+            "feishu_task_task",
+            "feishu_task_tasklist",
+            "feishu_update_doc",
+            "feishu_wiki_space",
+            "feishu_wiki_space_node"
+          ]
+        },
+        "workspace": "{{OPENCLAW_HOME}}/workspace-coding"
+      },
+      {
+        "agentDir": "{{OPENCLAW_HOME}}/agents/qa-agent/agent",
+        "id": "qa-agent",
+        "name": "qa-agent",
+        "tools": {
+          "alsoAllow": [
+            "feishu_bitable_app",
+            "feishu_bitable_app_table",
+            "feishu_bitable_app_table_field",
+            "feishu_bitable_app_table_record",
+            "feishu_bitable_app_table_view",
+            "feishu_calendar_calendar",
+            "feishu_calendar_event",
+            "feishu_calendar_event_attendee",
+            "feishu_calendar_freebusy",
+            "feishu_chat",
+            "feishu_chat_members",
+            "feishu_create_doc",
+            "feishu_doc_comments",
+            "feishu_doc_media",
+            "feishu_drive_file",
+            "feishu_fetch_doc",
+            "feishu_get_user",
+            "feishu_im_bot_image",
+            "feishu_im_user_fetch_resource",
+            "feishu_im_user_get_messages",
+            "feishu_im_user_get_thread_messages",
+            "feishu_im_user_message",
+            "feishu_im_user_search_messages",
+            "feishu_oauth",
+            "feishu_oauth_batch_auth",
+            "feishu_search_doc_wiki",
+            "feishu_search_user",
+            "feishu_sheet",
+            "feishu_task_comment",
+            "feishu_task_subtask",
+            "feishu_task_task",
+            "feishu_task_tasklist",
+            "feishu_update_doc",
+            "feishu_wiki_space",
+            "feishu_wiki_space_node"
+          ]
+        },
+        "workspace": "{{OPENCLAW_HOME}}/workspace-qa"
+      },
+      {
+        "agentDir": "{{OPENCLAW_HOME}}/agents/devops-agent/agent",
+        "id": "devops-agent",
+        "name": "devops-agent",
+        "tools": {
+          "alsoAllow": [
+            "feishu_bitable_app",
+            "feishu_bitable_app_table",
+            "feishu_bitable_app_table_field",
+            "feishu_bitable_app_table_record",
+            "feishu_bitable_app_table_view",
+            "feishu_calendar_calendar",
+            "feishu_calendar_event",
+            "feishu_calendar_event_attendee",
+            "feishu_calendar_freebusy",
+            "feishu_chat",
+            "feishu_chat_members",
+            "feishu_create_doc",
+            "feishu_doc_comments",
+            "feishu_doc_media",
+            "feishu_drive_file",
+            "feishu_fetch_doc",
+            "feishu_get_user",
+            "feishu_im_bot_image",
+            "feishu_im_user_fetch_resource",
+            "feishu_im_user_get_messages",
+            "feishu_im_user_get_thread_messages",
+            "feishu_im_user_message",
+            "feishu_im_user_search_messages",
+            "feishu_oauth",
+            "feishu_oauth_batch_auth",
+            "feishu_search_doc_wiki",
+            "feishu_search_user",
+            "feishu_sheet",
+            "feishu_task_comment",
+            "feishu_task_subtask",
+            "feishu_task_task",
+            "feishu_task_tasklist",
+            "feishu_update_doc",
+            "feishu_wiki_space",
+            "feishu_wiki_space_node"
+          ]
+        },
+        "workspace": "{{OPENCLAW_HOME}}/workspace-devops"
+      },
+      {
+        "agentDir": "{{OPENCLAW_HOME}}/agents/growth-agent/agent",
+        "id": "growth-agent",
+        "name": "growth-agent",
+        "tools": {
+          "alsoAllow": [
+            "feishu_bitable_app",
+            "feishu_bitable_app_table",
+            "feishu_bitable_app_table_field",
+            "feishu_bitable_app_table_record",
+            "feishu_bitable_app_table_view",
+            "feishu_calendar_calendar",
+            "feishu_calendar_event",
+            "feishu_calendar_event_attendee",
+            "feishu_calendar_freebusy",
+            "feishu_chat",
+            "feishu_chat_members",
+            "feishu_create_doc",
+            "feishu_doc_comments",
+            "feishu_doc_media",
+            "feishu_drive_file",
+            "feishu_fetch_doc",
+            "feishu_get_user",
+            "feishu_im_bot_image",
+            "feishu_im_user_fetch_resource",
+            "feishu_im_user_get_messages",
+            "feishu_im_user_get_thread_messages",
+            "feishu_im_user_message",
+            "feishu_im_user_search_messages",
+            "feishu_oauth",
+            "feishu_oauth_batch_auth",
+            "feishu_search_doc_wiki",
+            "feishu_search_user",
+            "feishu_sheet",
+            "feishu_task_comment",
+            "feishu_task_subtask",
+            "feishu_task_task",
+            "feishu_task_tasklist",
+            "feishu_update_doc",
+            "feishu_wiki_space",
+            "feishu_wiki_space_node"
+          ]
+        },
+        "workspace": "{{OPENCLAW_HOME}}/workspace-growth"
+      }
+    ]
+  },
+  "models": {
+    "providers": {
+      "deepseek": {
+        "baseUrl": "https://api.deepseek.com",
+        "apiKey": "sk-b9c6647f77614c05b5426095cb302069",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "deepseek-v4-flash",
+            "name": "deepseek-v4-flash",
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "maxTokens": 8192
+          },
+          {
+            "id": "deepseek-v4-pro",
+            "name": "deepseek-v4-pro",
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheWrite": 0,
+              "cacheRead": 0
+            },
+            "contextWindow": 128000,
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "maxTokens": 8192
+          }
+        ]
+      }
+    }
+  },
+  "bindings": [
+    {
+      "agentId": "main",
+      "match": {
+        "accountId": "default",
+        "channel": "feishu"
+      },
+      "type": "route"
+    },
+    {
+      "agentId": "conductor",
+      "match": {
+        "accountId": "conductor",
+        "channel": "feishu"
+      },
+      "type": "route"
+    },
+    {
+      "agentId": "research-agent",
+      "match": {
+        "accountId": "research-agent",
+        "channel": "feishu"
+      },
+      "type": "route"
+    },
+    {
+      "agentId": "architect-agent",
+      "match": {
+        "accountId": "architect-agent",
+        "channel": "feishu"
+      },
+      "type": "route"
+    },
+    {
+      "agentId": "ux-agent",
+      "match": {
+        "accountId": "ux-agent",
+        "channel": "feishu"
+      },
+      "type": "route"
+    },
+    {
+      "agentId": "coding-agent",
+      "match": {
+        "accountId": "coding-agent",
+        "channel": "feishu"
+      },
+      "type": "route"
+    },
+    {
+      "agentId": "qa-agent",
+      "match": {
+        "accountId": "qa-agent",
+        "channel": "feishu"
+      },
+      "type": "route"
+    },
+    {
+      "agentId": "devops-agent",
+      "match": {
+        "accountId": "devops-agent",
+        "channel": "feishu"
+      },
+      "type": "route"
+    },
+    {
+      "agentId": "growth-agent",
+      "match": {
+        "accountId": "growth-agent",
+        "channel": "feishu"
+      },
+      "type": "route"
+    }
+  ],
+  "plugins": {
+    "allow": [
+      "deepseek",
+      "memory-core",
+      "openclaw-lark"
+    ],
+    "entries": {
+      "openclaw-lark": {
+        "enabled": true
+      },
+      "deepseek": {
+        "enabled": true
+      }
+    },
+    "bundledDiscovery": "allowlist"
+  },
+  "channels": {
+    "feishu": {
+      "accounts": {
+        "architect-agent": {
+          "appId": "cli_a95a5dca0678dcbd",
+          "appSecret": "{{FEISHU_SECRET}}"
+        },
+        "coding-agent": {
+          "appId": "cli_a95a5e06f538dcee",
+          "appSecret": "{{FEISHU_SECRET}}"
+        },
+        "conductor": {
+          "appId": "cli_a95a5c12ee61dcca",
+          "appSecret": "{{FEISHU_SECRET}}"
+        },
+        "default": {
+          "appId": "",
+          "appSecret": "{{FEISHU_SECRET}}"
+        },
+        "devops-agent": {
+          "appId": "cli_a95a59c429b8dcdb",
+          "appSecret": "{{FEISHU_SECRET}}"
+        },
+        "growth-agent": {
+          "appId": "cli_a95a5a32ae78dcce",
+          "appSecret": "{{FEISHU_SECRET}}"
+        },
+        "qa-agent": {
+          "appId": "cli_a95a5e558fb81cc4",
+          "appSecret": "{{FEISHU_SECRET}}"
+        },
+        "research-agent": {
+          "appId": "cli_a95a5d281a78dcd5",
+          "appSecret": "{{FEISHU_SECRET}}"
+        },
+        "ux-agent": {
+          "appId": "cli_a95a5de4cb781cb2",
+          "appSecret": "{{FEISHU_SECRET}}"
+        }
+      }
+    }
+  }
+}
