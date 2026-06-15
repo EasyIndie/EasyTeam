@@ -130,16 +130,12 @@ print(f'    占位符数: {count}')
 # ---------- 5. 同步 team-core（如果同目录存在） ----------
 echo "  5/5 同步 team-core 平台无关文档..."
 if [ -d "$TEAM_CORE_DIR" ]; then
-  echo "     team-core/ 位于 $TEAM_CORE_DIR"
-  echo "     (export.sh 仅提示——team-core/ 更改需单独 git 管理)"
+  echo "     team-core/ 位于 $TEAM_CORE_DIR（同仓库管理）"
 fi
 
 echo ""
 echo "✅ 导出完成！"
 echo "   模板文件: $(find "$TEMPLATES_DIR" -type f | wc -l) 个"
 echo ""
-echo "   OpenClaw 适配同步到 git："
+echo "   同步到 git："
 echo "     cd $ROOT_DIR && git add -A && git commit -m \"sync: 更新团队配置\" && git push"
-echo ""
-echo "   team-core 同步到 git（如果单独管理）："
-echo "     cd $TEAM_CORE_DIR && git add -A && git commit -m \"sync: 更新团队规范\" && git push"
