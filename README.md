@@ -37,7 +37,7 @@ openclaw gateway restart
 
 ### dev — 软件开发团队
 
-<img width="768" height="512" alt="多智能体软件开发部" src="https://github.com/user-attachments/assets/f859a302-6f85-4de0-9357-b92caccab79e" />
+<img width="768" height="512" alt="多智能体软件开发部" src="https://github.com/user-attachments/assets/8dac2458-b921-487c-bc66-23d672d2a7f1" />
 
 9 Agent 的标准软件开发流程。
 
