@@ -59,7 +59,7 @@ echo ""
 echo "━━━ 2/5 创建 Workspace 目录 ━━━"
 for agent in "${AGENTS[@]}"; do
   if [ "$agent" = "main" ]; then
-    ws_dir="$OPENCLAWH_HOME/workspace"
+    ws_dir="$OPENCLAW_HOME/workspace"
   else
     ws_dir="$OPENCLAW_HOME/workspace-$agent"
   fi
