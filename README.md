@@ -89,7 +89,7 @@ git push
 
 **角色：** editor-in-chief / writer / designer / video-editor / publisher / researcher
 
-**可用平台：** Claude Code ✅ | Codex ✅
+**可用平台：** Claude Code ✅ | Codex ✅ | **OpenClaw** ✅ → 部署: `bash teams/content/platforms/openclaw/scripts/setup.sh`
 
 ### video — 视频团队
 
@@ -97,7 +97,7 @@ git push
 
 **角色：** producer / screenwriter / voice-actor / editor / publisher / analyst
 
-**可用平台：** Claude Code ✅ | Codex ✅
+**可用平台：** Claude Code ✅ | Codex ✅ | **OpenClaw** ✅ → 部署: `bash teams/video/platforms/openclaw/scripts/setup.sh`
 
 ### company — 全能公司
 
@@ -105,7 +105,7 @@ git push
 
 **角色：** ceo / product-manager / developer / operator / customer-service / finance / growth
 
-**可用平台：** Claude Code ✅ | Codex ✅
+**可用平台：** Claude Code ✅ | Codex ✅ | **OpenClaw** ✅ → 部署: `bash teams/company/platforms/openclaw/scripts/setup.sh`
 
 **流程：** 战略决策 → 产品定义 → 技术实现 → 运营推广 → 客服反馈 → 财务分析 → 复盘迭代
 
