@@ -49,7 +49,7 @@ platforms/<platform-name>/
 **OpenClaw**
 - 需要 `export.sh` + `setup.sh` + `templates/`（agents / workspaces / skills / openclaw.json.template）
 - `export.sh` 从本地 `~/.openclaw/openclaw.json` 导出，自动脱敏 API Key 和飞书凭据
-- `setup.sh` 合并配置到目标设备，交互式填写凭据
+- `setup.sh` 合并配置到目标设备，**需要 `DEEPSEEK_API_KEY` 环境变量**（模板中为 `{{DEEPSEEK_API_KEY}}` 占位符），飞书凭据仍需手动填写
 
 **Claude Code**
 - 只需要一个 `CLAUDE.md`，放到项目根目录
@@ -97,11 +97,21 @@ platforms/<platform-name>/
 - 输出统计（文件数、占位符数）
 - 提示 git 命令
 
+**脱敏契约（硬性）**：导出的模板中**不得出现任何明文密钥**。
+
+- `providers.deepseek.apiKey` 位于 **provider 层**（不在 `models[]` 内），需单独替换；
+- `agents/*/plugins/deepseek/catalog.json` 是**直接复制**的，复制后需再跑一次替换；
+- 两个出口都有**失败即中止**的兵底检查（检出 `"apiKey": "sk-` 或 `sk-` 后跟长串就 `exit 1`）。
+
+> 历史教训：原先的替换循环写成 `for m in ds['models']: if 'apiKey' in m`，而 `apiKey` 在 provider 层，循环永不命中，导致真实密钥一路被导出到模板——**脱敏代码写错了层级，等于没脱敏**。
+
 ### setup.sh
 
 - 前置检查目标设备上 OpenClaw 已安装且启动过
+- 前置检查 `DEEPSEEK_API_KEY` 已设置（缺失则 `exit 1`）
+- 把模板中的 `{{OPENCLAW_HOME}}` / `{{DEEPSEEK_API_KEY}}` 替换为真实值
 - 合并 templates/ 中的配置，但保留已有设备层配置
-- 交互式提示补填凭据
+- 交互式提示补填飞书凭据
 - 打印后续操作步骤
 
 ## 推荐工作流

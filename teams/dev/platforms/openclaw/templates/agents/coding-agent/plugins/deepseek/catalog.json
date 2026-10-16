@@ -38,7 +38,7 @@
         }
       ],
       "api": "openai-completions",
-      "apiKey": "sk-b9c6647f77614c05b5426095cb302069"
+      "apiKey": "{{DEEPSEEK_API_KEY}}"
     }
   }
 }
