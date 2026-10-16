@@ -28,6 +28,14 @@ if ! command -v openclaw &>/dev/null; then
   echo "⚠️  openclaw 命令不可用，部分操作将跳过。"
 fi
 
+# 模板中的 {{DEEPSEEK_API_KEY}} 必须在部署时注入（模板本身不得含明文密钥）
+if [ -z "${DEEPSEEK_API_KEY:-}" ]; then
+  echo "❌ 未设置环境变量 DEEPSEEK_API_KEY"
+  echo "   模板中密钥为占位符 {{DEEPSEEK_API_KEY}}，部署时注入，例如："
+  echo "     export DEEPSEEK_API_KEY=sk-xxxx && bash setup.sh"
+  exit 1
+fi
+
 echo "📦 OPENCLAW_HOME = $OPENCLAW_HOME"
 
 # ---------- 1. 创建 agent 目录 ----------
@@ -47,6 +55,11 @@ for agent in "${AGENTS[@]}"; do
     # 插件目录
     if [ -d "$src_dir/plugins" ]; then
       cp -r "$src_dir/plugins" "$agent_dir/" 2>/dev/null || true
+      if [ -f "$agent_dir/plugins/deepseek/catalog.json" ]; then
+        sed "s|{{DEEPSEEK_API_KEY}}|$DEEPSEEK_API_KEY|g" \
+          "$agent_dir/plugins/deepseek/catalog.json" > "$agent_dir/plugins/deepseek/catalog.json.tmp"
+        mv "$agent_dir/plugins/deepseek/catalog.json.tmp" "$agent_dir/plugins/deepseek/catalog.json"
+      fi
     fi
     echo "  ✅ $agent"
   else
@@ -88,12 +101,17 @@ fi
 echo ""
 echo "━━━ 4/5 写入全局配置 ━━━"
 if [ -f "$TEMPLATES_DIR/openclaw.json.template" ]; then
-  # 替换路径占位符
-  sed "s|{{OPENCLAW_HOME}}|$OPENCLAW_HOME|g" \
+  # 替换占位符（路径 + 密钥）
+  sed -e "s|{{OPENCLAW_HOME}}|$OPENCLAW_HOME|g" \
+      -e "s|{{DEEPSEEK_API_KEY}}|$DEEPSEEK_API_KEY|g" \
       "$TEMPLATES_DIR/openclaw.json.template" > /tmp/openclaw-team-config.json
 
+  if grep -q '{{DEEPSEEK_API_KEY}}' /tmp/openclaw-team-config.json; then
+    echo "❌ 配置中仍有未替换的 {{DEEPSEEK_API_KEY}} 占位符，已中止" >&2
+    exit 1
+  fi
+
   echo "⚠️  以下内容需要在目标设备手动填写："
-  echo "    • deepseek API Key（环境变量 DEEPSEEK_API_KEY 注入，或直接修改配置）"
   echo "    • 飞书机器人 appId / appSecret（9 个账号）"
   echo ""
   echo "   生成的临时配置文件：/tmp/openclaw-team-config.json"

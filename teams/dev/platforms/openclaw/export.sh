@@ -24,6 +24,14 @@ for agent in main conductor architect-agent coding-agent qa-agent devops-agent r
   if [ -d "$src/plugins/deepseek" ]; then
     mkdir -p "$dst/plugins/deepseek"
     cp "$src/plugins/deepseek/catalog.json" "$dst/plugins/deepseek/"
+    # 脉敏：catalog.json 的 apiKey 位于 provider 层，复制后必须替换为占位符
+    sed -E 's/("apiKey"[[:space:]]*:[[:space:]]*")[^"]*(")/\1{{DEEPSEEK_API_KEY}}\2/' \
+      "$dst/plugins/deepseek/catalog.json" > "$dst/plugins/deepseek/catalog.json.tmp"
+    mv "$dst/plugins/deepseek/catalog.json.tmp" "$dst/plugins/deepseek/catalog.json"
+    if grep -qE '"apiKey"[[:space:]]*:[[:space:]]*"sk-' "$dst/plugins/deepseek/catalog.json"; then
+      echo "  ❌ 脉敏失败：$dst/plugins/deepseek/catalog.json 仍含明文 apiKey，已中止导出" >&2
+      exit 1
+    fi
   fi
 done
 
@@ -91,7 +99,10 @@ team_config = {
 
 if 'deepseek' in config.get('models', {}).get('providers', {}):
     ds = json.loads(json.dumps(config['models']['providers']['deepseek']))
-    for m in ds['models']:
+    # apiKey 实际位于 provider 层（providers.deepseek.apiKey），不在 models[] 内
+    if ds.get('apiKey'):
+        ds['apiKey'] = '{{DEEPSEEK_API_KEY}}'
+    for m in ds.get('models', []):
         if 'apiKey' in m:
             m['apiKey'] = '{{DEEPSEEK_API_KEY}}'
         m.pop('credentials', None)
@@ -117,6 +128,12 @@ if feishu:
 
 json_str = json.dumps(team_config, indent=2)
 json_str = json_str.replace(OPENCLAW_HOME, '{{OPENCLAW_HOME}}')
+
+# 兜底：任何形状的疑似明文密钥都不允许写进模板
+import re
+leak = re.search(r'sk-[A-Za-z0-9_\-]{16,}', json_str)
+if leak:
+    raise SystemExit(f'❌ 导出中止：模板中检测到疑似明文 API Key（{leak.group(0)[:8]}…）')
 
 with open(os.path.join(TEMPLATES_DIR, 'openclaw.json.template'), 'w') as f:
     f.write(json_str)
